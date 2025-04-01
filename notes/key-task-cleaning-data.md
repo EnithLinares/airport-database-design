@@ -2,34 +2,38 @@ Key Tasks:
 
 Activity Period:
 
--   Ensure values are in YYYYMM format (e.g., 202501 for January 2025).
+Ensure values are in YYYYMM format (e.g., 202501 for January 2025).
 
--   Split into year and month columns if needed:
+In Google Sheets create a column called valid period and use the following formula
 
-          ALTER TABLE flight ADD COLUMN year INT, ADD COLUMN month INT;
-          UPDATE flight
-          SET year = LEFT(activity_period::TEXT, 4)::INT,
-          month = RIGHT(activity_period::TEXT, 2)::INT;
+        =IF(AND(LEN(A2)=6, ISNUMBER(A2)), "Valid", "Invalid")
 
-Airline Codes:
+Copy the formula to all the cells in the valid period column, create a filter and check for any invalid entries. Delete empty rows and reformat if needed.
 
--   Remove duplicates in operating_airline_iata_code and published_airline_iata_code (Excel: Data → Remove Duplicates).
+Passenger Count
 
--   Validate IATA codes are 2 characters (Excel formula: =LEN(A2)=2).
+We repeat the process with passanger count, but this time checking for numerical values and making sure there's no negative values with the following formula
 
-GEO Regions/Activity Types:
+          =IF(AND(ISNUMBER(L2), L2 >= 0), "Valid", "Invalid")
 
--   Use Excel’s Data Validation to enforce allowed values (e.g., GEO Summary = "Domestic" or "International").
+Normalizing Geographic Regions:
 
--   Create lookup tables in PostgreSQL for consistency:
+We create a lookout table for valid geo regions by selecting the column, go to data > data cleanup > remove duplicates - This process leaves us with the unique values of the columns.
+In a seperate sheet, a new table with two columns, original value and standardized value
+The only values that need to be find and replace are US with United States and Australia / Oceania with Oceania.
 
-        CREATE TABLE geo_region (region_id SERIAL PRIMARY KEY, region_name VARCHAR(50) UNIQUE);
-        INSERT INTO geo_region (region_name) VALUES ('US'), ('Asia'), ('Europe');
+This get achieved with Edit > Find and Replace > Match Case
 
-Cargo Weight:
+Geo Summary
 
--   Convert Cargo Weight LBS to kilograms if needed (1 lb = 0.453592 kg).
+The summaries are divided by Domestic and International - to validate this data we create a column called valid geo summary and applied the following formula to the cells in the new column
 
--   Ensure non-negative values with PostgreSQL constraints:
+        =IF(OR(F2="Domestic", F2="International"), "Valid", "Invalid")
 
-        ALTER TABLE cargo ADD CHECK (freight_weight_kg >= 0);
+Then we create a filter to check for invalid data and fix the issues if needed.
+
+Price category
+
+This follows the same process as geo summary, but this time checking for Low Fare or Other with this formula
+
+    =IF(OR(I2="Low Fare", I2="Other"), "Valid", "Invalid")
