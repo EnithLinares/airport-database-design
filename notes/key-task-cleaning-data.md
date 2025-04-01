@@ -37,3 +37,22 @@ Price category
 This follows the same process as geo summary, but this time checking for Low Fare or Other with this formula
 
     =IF(OR(I2="Low Fare", I2="Other"), "Valid", "Invalid")
+
+Airline related columns
+
+Uniqueness had to be dropped on iata codes as some airlines operate under the same operating name with a different published name and code, instead a combination constrained had to be enacted.
+
+The airport table was populated manually as followed
+
+        INSERT INTO sfo_airport.airport (airport_name, icao_code, iata_code)
+        VALUES ('San Francisco International Airport', 'KSFO', 'SFO');
+
+The terminals were also done manually by removind the duplicates and adding their relation to the airpor
+
+        INSERT INTO sfo_airport.terminal (terminal_name, airport_id)
+        VALUES
+        ('Terminal 1', 1),
+        ('Terminal 2', 1),
+        ('Terminal 3', 1),
+        ('International', 1),
+        ('Other', 1);
