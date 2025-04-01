@@ -27,7 +27,9 @@ For this exercise, I am using PostgreSQL to create a database for an airport sys
 
 ## Database Design Diagrams
 
-![Database diagram outlining the relationships between airlines, passengers, cargo, terminals and flights](https://dbdiagram.io/d/67ea10534f7afba184c19c17)
+![Database diagram outlining the relationships between airlines, passengers, cargo, terminals and fligh](schema/airport-database-design.png)
+
+You can see the breakdown of this image in this [link](https://dbdiagram.io/d/airport-database-design-67ea10534f7afba184c19c17)
 
 ### Data Relationships
 

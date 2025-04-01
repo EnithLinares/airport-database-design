@@ -83,8 +83,6 @@ Denormalize selectively: Add redundant columns for frequently joined data (e.g.,
 
 ### Key Takeaways
 
-git
-
 1. Index wisely: Focus on columns used in WHERE, JOIN, and ORDER BY.
 
 2. Constraints = Data Quality: Prevent invalid data upfront.
