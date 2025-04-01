@@ -62,7 +62,7 @@ Constrains inforces rules to keep your data accurate and reliable
 
 ## Query Optimization
 
-Use `EXPLAIN ANALYZE` : See how PostgreSQL executes your query (e.g., `EXPLAIN ANALYZE SELECT * FROM flights WHERE departure_time > '2025-03-30'`). This reveals if indexes are used or if a full table scan occurs)
+Use `EXPLAIN ANALYZE` : See how PostgreSQL executes your query (e.g., `EXPLAIN ANALYZE SELECT * FROM flights WHERE departure_time > '2025-03-30'`). This reveals if indexes are used or if a full table scan occurs
 
 Avoid `SELECT *` : Only fetch needed columns to reduce data transfer
 
